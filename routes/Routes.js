@@ -5,26 +5,24 @@
  */
 
 const Router = require('restify-router').Router;
-const routerInstance = new Router();
-const jwt = require('jsonwebtoken')
-const apiPoint = `/api`
+const routes = new Router();
 const axios = require('axios');
 
 const Controller = require('../controllers/Controller.js');
 
-routerInstance.get('/show', Controller.index);
+routes.get('/show', Controller.index);
 
-routerInstance.get('/show/:id', Controller.show);
+routes.get('/show/:id', Controller.show);
 
-routerInstance.post('/store', Controller.store);
+routes.post('/store', Controller.store);
 
-routerInstance.post('/meme', verifyToken, Controller.meme);
+routes.post('/meme', verifyToken, Controller.meme);
 
-routerInstance.put('/update/:id', Controller.update);
+routes.put('/update/:id', Controller.update);
 
-routerInstance.del('/delete/:id', Controller.detroy);
+routes.del('/delete/:id', Controller.detroy);
 
-routerInstance.post(`/auth/login`, (req, res) => {
+routes.post(`/auth/login`, (req, res) => {
     //URL for to make login
     const url = `https://ec021-2019-2-av2-auth.herokuapp.com/auth/login`
 
@@ -72,4 +70,4 @@ function verifyToken(req, res, next) {
     }
 }
 
-module.exports = routerInstance;
+module.exports = routes;

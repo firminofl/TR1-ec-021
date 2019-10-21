@@ -24,7 +24,7 @@ server.use(restify.plugins.bodyParser());
 
 //Definindo endpoints (ou rotas) da minha aplicação.
 
-let routes = require("./routes/routes")
+let routes = require("./routes/Routes")
 routes.applyRoutes(server)
 
 //Subindo o servidor

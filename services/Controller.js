@@ -21,7 +21,7 @@ module.exports = {
     async meme(req, res, next) {
         console.log(`Rota meme (Services)! ${JSON.stringify(req.body)}`)
 
-        return 501
+        return 200
     },
 
     async show(req, res) {
