@@ -59,13 +59,13 @@ function verifyToken(req, res, next) {
     //Check if authHeader is undefined
     if (typeof tokenHeader !== 'undefined') {
         //Set the token
-        req.token = tokenHeader
-        
+        //req.token = tokenHeader
+
         //Next middleware
         next()
     } else {
         console.log(`Forbidden`)
-        //Forbidden
+            //Forbidden
         res.send(403)
     }
 }

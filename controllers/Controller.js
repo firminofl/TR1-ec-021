@@ -20,7 +20,7 @@ module.exports = {
     },
 
     async meme(req, res, next) {
-        await validateToken(req.token)
+        await validateToken(req.headers.token)
             .then(response => {
                 console.log(`Rota meme (Controller)!`)
                 let status = ControllerService.meme(req)

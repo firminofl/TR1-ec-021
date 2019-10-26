@@ -13,7 +13,7 @@ const server = restify.createServer({
 });
 
 //Definindo porta em que subiremos o servidor
-let port = process.env.PORT || 3001;
+let port = 3001;
 
 /**
  * Utilizando o bodyParser para
@@ -28,6 +28,6 @@ let routes = require("./routes/Routes")
 routes.applyRoutes(server)
 
 //Subindo o servidor
-server.listen(port, function () {
+server.listen(port, function() {
     console.log(`Servidor ${server.name} executando na porta ${port}`);
 });
