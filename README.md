@@ -27,8 +27,8 @@ $ npm start
 ```
 
 ### Contact
-[Filipe Firmino Lemos](mailto:filipefirmino@gec.inatel.br)
-[Gustavo Henrique Rosa de Castro](mailto:gustavohenrique@gec.inatel.br)
+- [Filipe Firmino Lemos](mailto:filipefirmino@gec.inatel.br)
+- [Gustavo Henrique Rosa de Castro](mailto:gustavohenrique@gec.inatel.br)
 
 ### License
 
