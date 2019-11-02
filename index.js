@@ -6,6 +6,7 @@
 
 //Importando a biblioteca do Restify
 const restify = require('restify');
+require('./database/Connect')
 
 //Configurando servidor
 const server = restify.createServer({
@@ -20,12 +21,15 @@ let port = 3001;
  * converter o body da request em
  * um jSON
  * */
+server.pre(restify.pre.sanitizePath());
 server.use(restify.plugins.bodyParser());
 
 //Definindo endpoints (ou rotas) da minha aplicação.
 
-let routes = require("./routes/Routes")
-routes.applyRoutes(server)
+let memes = require("./routes/Memes")
+let login = require("./routes/Login")
+memes.applyRoutes(server)
+login.applyRoutes(server)
 
 //Subindo o servidor
 server.listen(port, function() {

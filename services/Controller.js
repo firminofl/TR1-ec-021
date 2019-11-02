@@ -3,51 +3,60 @@
  * Data: 20/10/2019
  * Contato: filipefirmino@gec.inatel.br & gustavohenrique@gec.inatel.br
  */
+const MemesModel = require('../schema/Model');
 
-module.exports = {
-    async index(obj, req) {
-        //metodo 
-        // await doRequest(true)
-        //     .then(response => {
-        //         console.log(`Rota index (services)! | Atributo: ${response.nome} | ${obj.id} - ${obj.name}`)
-        //     })
-        return 220;
-    },
+async function store({ titulo, descricao, ano }) {
+    console.log(`Rota store (Services)!`)
 
-    async store(req, res) {
-        console.log(`Rota store!`)
-    },
-
-    async meme(req, res, next) {
-        console.log(`Rota meme (Services)! ${JSON.stringify(req.body)}`)
-
-        return 200
-    },
-
-    async show(req, res) {
-        console.log(`Rota show!`)
-    },
-
-    async update(req, res) {
-        console.log(`Rota update!`)
-    },
-
-    async detroy(req, res) {
-        console.log(`Rota detroy!`)
+    let meme = {
+        titulo,
+        descricao,
+        ano
     }
+    return MemesModel.create(meme)
 }
 
-function doRequest(resolver) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (!resolver) {
-                // rejeitá-la
-                reject("Reject Promise!")
-            }
-            resolve({
-                id: 1,
-                nome: "Teste"
-            });
-        }, 5000);
+async function showAll() {
+    console.log(`Rota show!`)
+
+    return MemesModel.find().lean()
+}
+
+async function showOne({ id }) {
+    console.log(`Rota showOne! ${id}`);
+    //console.log(Memes.findById(id).lean())
+    return MemesModel.findById(id).lean()
+}
+
+async function detroy({ id }) {
+    console.log(`Rota detroy! ${id}`);
+    //console.log(Memes.findById(id).lean())
+    return MemesModel.deleteOne({ _id: id })
+}
+
+async function update({ id, titulo, descricao, ano }) {
+    console.log(`Rota update! ${id}`);
+    //console.log(Memes.findById(id).lean())
+
+    let fieldsToSet = {};
+    if (titulo) fieldsToSet.titulo = titulo
+    if (descricao) fieldsToSet.descricao = descricao
+    if (ano) fieldsToSet.ano = ano
+    fieldsToSet.updatedAt = Date.now();
+
+    return MemesModel.findOneAndUpdate({
+        _id: id,
+    }, {
+        $set: fieldsToSet
+    }, {
+        new: true
     });
+}
+
+module.exports = {
+    store,
+    showAll,
+    showOne,
+    detroy,
+    update
 }

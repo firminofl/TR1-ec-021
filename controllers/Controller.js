@@ -7,84 +7,54 @@
 const ControllerService = require("../services/Controller")
 const axios = require('axios');
 
-module.exports = {
-    async index(req, res) {
-        console.log(`Rota index (controller)! ${req.userId}`)
-        let status = await ControllerService.index({ id: 1, name: "Test" }, req)
-        console.log(`Status: ${status}`)
-        return res.send({ message: "Sucesso na requisição!" })
-    },
+async function store(req, res, next) {
+    console.log(`Rota Store (controller)!`)
 
-    async store(req, res) {
-        console.log(`Rota store (controller)!`)
-    },
+    const { titulo, descricao, ano } = req.body;
 
-    async meme(req, res, next) {
-        await validateToken(req.headers.token)
-            .then(response => {
-                console.log(`Rota meme (Controller)!`)
-                let status = ControllerService.meme(req)
+    if (!titulo || !descricao || !ano) return res.send(400);
 
-                status.then(response => {
-                    switch (response) {
-                        case 200:
-                            res.send({
-                                success: 200
-                            })
-                            break;
-                        case 400:
-                            res.send({
-                                error: 400
-                            })
-                            break;
-
-                        default:
-                            res.send({
-                                error: 500
-                            })
-                            break;
-                    }
-                })
-            })
-            .catch(error => {
-                res.send({
-                    message: `Error to validate token.`
-                })
-            })
-    },
-
-    async show(req, res) {
-        console.log(`Rota show (controller)!`)
-    },
-
-    async update(req, res) {
-        console.log(`Rota update (controller)!`)
-    },
-
-    async detroy(req, res) {
-        console.log(`Rota detroy (controller)!`)
-    }
+    let meme = await ControllerService.store({ titulo, descricao, ano })
+    res.send(201, meme)
 }
 
-function validateToken(token) {
-    return new Promise((resolve, reject) => {
-        //URL for to validate token
-        const url = `https://ec021-2019-2-av2-auth.herokuapp.com/auth/validateToken`
+async function showAll(req, res) {
+    console.log(`Rota show (controller)!`)
+    let meme = await ControllerService.showAll()
+    res.send(200, meme)
+}
 
-        let data = {};
-        let config = {
-            headers: {
-                token
-            }
-        };
+async function showOne(req, res) {
+    console.log(`Rota showOne (controller)!`)
 
-        axios.post(url, data, config)
-            .then((response) => {
-                //Set the data to return
-                resolve();
-            })
-            .catch((error) => {
-                reject()
-            });
-    });
+    const { id } = req.params
+    let meme = await ControllerService.showOne({ id })
+    res.send(200, meme)
+}
+
+async function detroy(req, res) {
+    console.log(`Rota delete (controller)!`)
+
+    const { id } = req.body
+    await ControllerService.detroy({ id })
+    res.send(204)
+}
+
+async function update(req, res) {
+    console.log(`Rota update (controller)!`)
+
+    const { id } = req.params
+    const { titulo, descricao, ano } = req.body;
+    if (!titulo && !descricao && !ano) return res.send(400);
+
+    let meme = await ControllerService.update({ id, titulo, descricao, ano })
+    res.send(200, meme)
+}
+
+module.exports = {
+    store,
+    showAll,
+    showOne,
+    detroy,
+    update
 }
