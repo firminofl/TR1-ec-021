@@ -3,42 +3,43 @@
  * Data: 20/10/2019
  * Contato: filipefirmino@gec.inatel.br & gustavohenrique@gec.inatel.br
  */
+
+//Importando o SCHEMA do moogose
 const MemesModel = require('../schema/Model');
 
+//Metodo para trabalhar o armazenamento do meme
 async function store({ titulo, descricao, ano }) {
-    console.log(`Rota store (Services)!`)
-
     let meme = {
         titulo,
         descricao,
         ano
     }
+
+    //Criação do meme na coleção especificada no projeto
     return MemesModel.create(meme)
 }
 
 async function showAll() {
-    console.log(`Rota show!`)
-
+    //Mostrar todos os memes na coleção especificada no projeto
+    //Metodo LEAN() é para evitar alguns parametros retornados depois de aberto a conexão, para diminuir o consumo de banda
     return MemesModel.find().lean()
 }
 
 async function showOne({ id }) {
-    console.log(`Rota showOne! ${id}`);
-    //console.log(Memes.findById(id).lean())
+    //Mostrar um meme na coleção com base em seu id
+    //Metodo LEAN() é para evitar alguns parametros retornados depois de aberto a conexão, para diminuir o consumo de banda
     return MemesModel.findById(id).lean()
 }
 
 async function detroy({ id }) {
-    console.log(`Rota detroy! ${id}`);
-    //console.log(Memes.findById(id).lean())
+    //Deletar um meme com base em seu id
     return MemesModel.deleteOne({ _id: id })
 }
 
 async function update({ id, titulo, descricao, ano }) {
-    console.log(`Rota update! ${id}`);
-    //console.log(Memes.findById(id).lean())
-
+    //Atualizar os memes com base em seus parametros e atualizar somente as informações necessarias, sem a necessidade de trocar o que já é igual
     let fieldsToSet = {};
+
     if (titulo) fieldsToSet.titulo = titulo
     if (descricao) fieldsToSet.descricao = descricao
     if (ano) fieldsToSet.ano = ano
@@ -53,6 +54,7 @@ async function update({ id, titulo, descricao, ano }) {
     });
 }
 
+//Exportação dos metodos acima
 module.exports = {
     store,
     showAll,

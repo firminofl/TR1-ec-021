@@ -6,14 +6,16 @@
 
 //Importando a biblioteca do Restify
 const restify = require('restify');
+
+//Abrindo conexão com o banco de dados (MongoDB Atlas)
 require('./database/Connect')
 
-//Configurando servidor
+//Criando o servidor e dando um nome ao mesmo
 const server = restify.createServer({
     name: 'TR1-EC021'
 });
 
-//Definindo porta em que subiremos o servidor
+//Definindo porta em que o servidor irá utilizar
 let port = 3001;
 
 /**
@@ -21,13 +23,16 @@ let port = 3001;
  * converter o body da request em
  * um jSON
  * */
-server.pre(restify.pre.sanitizePath());
 server.use(restify.plugins.bodyParser());
 
-//Definindo endpoints (ou rotas) da minha aplicação.
+//Ignora na URL se faltar a barra (/) após a porta e no id conforme a query formada (/:id) caso não tenha enviado um id ou seja de uma rota do tipo GET
+server.pre(restify.pre.sanitizePath());
 
+//Definindo endpoints (ou rotas) da aplicação. Arquivos para melhorar a visibilidade das rotas e fácil manutenção.
 let memes = require("./routes/Memes")
 let login = require("./routes/Login")
+
+//Aplicando a importação das rotas para utiliza-las
 memes.applyRoutes(server)
 login.applyRoutes(server)
 

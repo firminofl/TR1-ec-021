@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
-const DB_URL = 'mongodb://localhost:27017/memes';
+//URL de conexão com o mongoDB Atlas
+const DB_URL = 'mongodb+srv://adauto:adauto@cluster0-rven8.mongodb.net/test?retryWrites=true&w=majority'
+
+//Configurando os parametros necessários para iniciar a conexão
 const DB_SETTINGS = {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -9,6 +12,7 @@ const DB_SETTINGS = {
     dbName: 'ec021-av2-core'
 }
 
+//Inicio da conexão, passando os parametros mencionados anteriormente
 mongoose.connect(DB_URL, DB_SETTINGS, (err) => {
     if (err) {
         console.log(`Erro ao conectar no MongoDB Atlas`);
