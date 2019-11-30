@@ -14,23 +14,23 @@ This project implements the routes:
 	
 ## Dependencies/Libraries
 Project is created with:
-* Node.js: 10.16.0
+### Node.js: 10.16.0
 As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications.
 
-* Restify: 8.4.0
+#### Restify: 8.4.0
 A Node.js web service framework optimized for building semantically correct RESTful web services.
 
-* Restify-router: 0.5.1
+#### Restify-router: 0.5.1
 This module allows you to define your routes using a Router interface that is identical to how routes are registered on a restify server. You can then apply the routes to a server instance.
 
-* Moongose: 5.7.7
+#### Moongose: 5.7.7
  It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
 
-* Axios: 0.19.0
+#### Axios: 0.19.0
 Promise based HTTP client. 
 Do a request in another API.
 
-* Json Web Token - JWT: 8.5.1
+#### Json Web Token - JWT: 8.5.1
 JWTs are credentials, which can grant access to resources. 
 Validate the token sent in the request.
 
