@@ -1,4 +1,8 @@
 # TR1-EC021
+### Authors
+- Filipe Firmino Lemos, 1162, Engenharia da computação
+- Gustavo Henrique Rosa de Castro, 1148, Engenharia da computação
+
 ## Topics
 + [General info](#summary)
 + [Dependencies/Libraries](#Dependencies/Libraries)
